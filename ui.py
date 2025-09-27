@@ -2,12 +2,11 @@ from hand import Row, Section
 from player import Player
 from card import Card
             
-import os
 import curses
-from curses import wrapper
 import traceback
 import sys
-class Screen:
+
+class GameScreen:
 
     def __init__(self, players: list[Player] = None):
         self.players = players if players is not None else []
@@ -29,7 +28,10 @@ class Screen:
         
     def render(self, stdscr):
         stdscr.clear()
+        stdscr.border()
         stdscr.refresh()
+
+        
 
         cards = []
         # x = 0
@@ -47,7 +49,7 @@ class Screen:
             hand = player.hand.getRows()
             for y, row in enumerate(hand):
                 for x, card in enumerate(row.getCards()):
-                    cardWin = curses.newwin(Card.CARD_SIZE[0], Card.CARD_SIZE[1], y*Card.CARD_SIZE[0], z+x*Card.CARD_SIZE[1])
+                    cardWin = curses.newwin(Card.CARD_SIZE[0], Card.CARD_SIZE[1], y*Card.CARD_SIZE[0] + 5, z+x*Card.CARD_SIZE[1] + 5)
                     if card.type == "blank":
                         cardWin.addstr(0,0, Card.CARD_BLANK_SHAPE)
                         cards.append(cardWin)
@@ -58,6 +60,14 @@ class Screen:
         
         for card in cards:
             card.refresh()
+        
+
+class EndGameScreen:
+    def __init__(self):
+        pass
+
+    def playerVictory(self, stdscr):
+        pass
 
 
 class Ui:
@@ -67,7 +77,7 @@ class Ui:
         
 
     def renderScreen(self, state):
-        screen = Screen()
+        screen = GameScreen()
         for player in state:
             screen.addPlayer(player)
         screen.render(self.stdscr)

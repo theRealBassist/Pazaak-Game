@@ -18,7 +18,7 @@ try:
         state = gameBoard.getState()
         input = screen.renderScreen(state)
         #getInput()
+        
 finally:
     screen.cleanup()
-
-
+    
