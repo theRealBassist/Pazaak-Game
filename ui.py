@@ -15,6 +15,7 @@ class Screen:
         print("=================================")
         for player in self.players:
             print(player.name)
+            print(player.getTotalCards())
             hand = player.hand.getRows()
             for row in hand:
                 for line in row.bake():

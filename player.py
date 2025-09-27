@@ -23,6 +23,15 @@ class Player:
                     total += int(f'{card.sign}{card.value}')
         return total
     
+    def getTotalCards(self) -> int:
+        total = 0
+        for row in self.hand.getRows():
+            for card in row.getCards():
+                if card.type == "main":
+                    total += 1
+        return total
+
+
     def stand(self):
         self.standing = True
     

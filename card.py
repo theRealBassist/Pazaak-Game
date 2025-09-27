@@ -1,6 +1,11 @@
 class Card:
-    TYPES = ["main", "blank"]
-    SIGNS = ["+", "-", ""]
+    TYPES = ["main", "blank", "flip", "both", "double", "breaker"]
+    SIGNS = ["+", "-", "+/-", ""]
+    MAIN_VALUES = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+    SIGNED_VALUES = [1, 2, 3, 4, 5, 6]
+    FLIPED_VALUES = {2: 4,
+                     3: 6}
+    
     def __init__(self, value: int, sign: str, type: str):
         if not (0 <= value <= 10):
             raise ValueError("The card value must be between 0 and 10")
