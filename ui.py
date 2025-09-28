@@ -1,5 +1,6 @@
 from player import Player
 from card import Card
+from board import Board
             
 import curses
 import traceback
@@ -44,12 +45,21 @@ class Screen:
     
     def pause(self):
         self.stdscr.getch()
+    
+    def render(self):
+        pass
+
+    def update(*args):
+        pass
 
 class GameScreen(Screen):
 
-    def __init__(self, players: list[Player] = None):
+    def __init__(self, board: Board = None):
         super().__init__()
-        self.players = players if players is not None else []
+        self.players: list[Player] = board.getState() if board is not None else []
+
+    def update(self, board: Board):
+        self.players = board.getState()
     
     def addPlayer(self, player: Player):
         self.players.append(player)
@@ -79,16 +89,22 @@ class GameScreen(Screen):
         
 
 class EndGameScreen(Screen):
-    def __init__(self, winner: str = "player"):
+    def __init__(self):
         super().__init__()
 
-        match winner:
+    def update(self, board: Board):
+        self.winner = board.winner
+
+    def render(self):
+        match self.winner:
             case "player":
                 self.playerVictory()
             case "opp":
                 self.playerDefeat()
             case "tie":
                 self.playerTie()
+        
+        self.pause()
 
     def playerVictory(self):
         self.stdscr.addstr("You WON!")
@@ -100,7 +116,31 @@ class EndGameScreen(Screen):
         self.stdscr.addstr("You TIED!")
 
 
+class ScreenManager:
+    def __init__(self):
+        self.currentScreen: Screen = Screen()
     
+    def update(self, *args):
+        self.currentScreen.update(*args)
+        self.currentScreen.render()
+
+    def setScreen(self, newScreen, *args):
+        self.cleanup()
+    
+        if isinstance(newScreen, type):
+            self.currentScreen = newScreen(*args)
+        elif isinstance(newScreen, object):
+            self.currentScreen = newScreen
+        else:
+            raise TypeError("ScreenManager.setScreen() requires a valid type or screen object")
+    
+    def getInput(self) -> str:
+        key = self.currentScreen.stdscr.getkey()
+        return key
+    
+    def cleanup(self):
+        if self.currentScreen is not None:
+            self.currentScreen.cleanup()
     
     
 
