@@ -140,12 +140,3 @@ class ScreenManager:
     def cleanup(self):
         if self.currentScreen is not None:
             self.currentScreen.cleanup()
-    
-    
-
-        
-
-
-            
-
-

@@ -1,7 +1,7 @@
-import board
+from board import Board
 import ui as Ui
 
-gameBoard = board.Board()
+gameBoard = Board()
 screenManager = Ui.ScreenManager()
 screenManager.setScreen(Ui.GameScreen)
 
