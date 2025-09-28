@@ -16,7 +16,7 @@ class Board:
         if self.checkEndState():
              return
         
-        if self.turn == 0 and self.pc.isStanding is not True:
+        if self.turn == 0 and self.pc.standing is not True:
             self.playerTurn()
         else:
             self.oppTurn()
@@ -24,11 +24,12 @@ class Board:
         self.iterateTurn()
     
     def playerTurn(self):
-        if not self.pc.isStanding is True:
-                card = Card(randrange(1, 10), None, "main")
-                self.pc.addHandCard(card)
-        elif self.pc.getHandTotal() > 20:
+        if self.pc.getHandTotal() > 20:
             self.endGame()
+        card = Card(randrange(1, 10), None, "main")
+        self.pc.addHandCard(card)
+        return
+        
 
 
     def oppTurn(self):
@@ -38,7 +39,7 @@ class Board:
                 if self.opp.getHandTotal() >= 17:
                     self.opp.stand()
         else:
-            raise ValueError("OPP IS STANDING")
+            pass
 
     def iterateTurn(self):
         if self.turn == 0:
@@ -68,22 +69,22 @@ class Board:
     def endGame(self):
         self.running = False
         if self.pc.getHandTotal() > 20 or self.pc.getTotalCards() == 9:
-            print("BOO YOU SUCK")
+            self.winner = "opp"
             return
 
         if self.opp.getHandTotal() > 20 or self.opp.getTotalCards() == 9:
-            print ("CONGRATS YOU WON")
+            self.winner = "player"
             return
 
         
         if self.pc.getHandTotal() > self.opp.getHandTotal():
-                print ("CONGRATS YOU WON")
+            self.winner = "player"
         elif self.pc.getHandTotal() < self.opp.getHandTotal():
-            print("BOO YOU SUCK")
+            self.winner = "opp"
         elif self.pc.getHandTotal() == self.opp.getHandTotal():
-            print("I GUESS A TIE IS ALRIGHT")
+            self.winner = "tie"
         return
 
-    def getState(self):
+    def getState(self) -> list[Player]:
         state = [self.pc, self.opp]
         return state
