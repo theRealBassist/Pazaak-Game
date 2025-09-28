@@ -13,7 +13,6 @@ try:
             screenManager.update(gameBoard)
             break
 
-        state = gameBoard.getState()
         screenManager.update(gameBoard)
         input = screenManager.getInput()
         if input == "s":

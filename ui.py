@@ -87,7 +87,6 @@ class GameScreen(Screen):
         for card in cards:
             card.refresh()
         
-
 class EndGameScreen(Screen):
     def __init__(self):
         super().__init__()
