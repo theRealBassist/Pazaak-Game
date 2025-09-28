@@ -1,21 +1,30 @@
 import board
-from ui import Ui 
+import ui as Ui
 
 gameBoard = board.Board()
-screen = Ui
-
+screen = None
 def getInput():
-    userInput = input()
-    if userInput == "s":
-        gameBoard.pc.stand()
+    input = screen.stdscr.getkey()
+    return input
 
-while True:
-    gameBoard.takeTurn()
-    if gameBoard.running:
+try:
+    while True:
+        gameBoard.takeTurn()
+        if not gameBoard.running:
+            if screen is not None:
+                screen.cleanup()
+            screen = Ui.EndGameScreen(gameBoard.winner)
+            screen.pause()
+            screen.cleanup()
+            break
+
         state = gameBoard.getState()
-        screen.renderScreen(screen, state)
-        getInput()
-    else:
-        break
-
-
+        screen = Ui.GameScreen(state)
+        screen.render()
+        input = getInput()
+        if input == "s":
+            gameBoard.pc.stand()
+        
+finally:
+    screen.cleanup()
+    

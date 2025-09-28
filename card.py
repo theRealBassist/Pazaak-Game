@@ -1,4 +1,20 @@
 class Card:
+    CARD_SIZE = (8, 8)
+
+    CARD_BLANK_SHAPE = (" _____ \n" \
+                        "|     |\n" \
+                        "|     |\n" \
+                        "|     |\n" \
+                        "|     |\n" \
+                        "|_____|\n")
+    
+    CARD_MAIN_SHAPE_BLANK = ("  ___  \n" \
+                             " /...\ \n" \
+                             "|.....|\n" \
+                             "|.....|\n" \
+                             "|.....|\n" \
+                             " \___/ \n")
+
     TYPES = ["main", "blank", "flip", "both", "double", "breaker"]
     SIGNS = ["+", "-", "+/-", ""]
     MAIN_VALUES = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
