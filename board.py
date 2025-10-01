@@ -6,13 +6,13 @@ from random import choice
 
 class Board:
 
-    def __init__(self):
+    def __init__(self) -> None:
         self.pc = Player("pc")
         self.opp = Player("opp")
         self.turn = 0
         self.running = True
     
-    def takeTurn(self):
+    def takeTurn(self) -> None:
         if self.checkEndState():
              return
         
@@ -23,25 +23,20 @@ class Board:
 
         self.iterateTurn()
     
-    def playerTurn(self):
+    def playerTurn(self) -> None:
         if self.pc.getHandTotal() > 20:
             self.endGame()
-        card = Card(randrange(1, 10), None, "main_card")
+        card = Card(randrange(1, 10), "", "main_card")
         self.pc.addHandCard(card)
-        return
         
-
-
     def oppTurn(self):
         if not self.opp.isStanding() is True:
-                card = Card(randrange(1, 10), None, "main_card")
+                card = Card(randrange(1, 10), "", "main_card")
                 self.opp.addHandCard(card)
                 if self.opp.getHandTotal() >= 17:
                     self.opp.stand()
-        else:
-            pass
 
-    def iterateTurn(self):
+    def iterateTurn(self) -> None:
         if self.turn == 0:
             self.turn = 1
         elif self.turn == 1:
@@ -64,9 +59,7 @@ class Board:
         
         return False
             
-        
-
-    def endGame(self):
+    def endGame(self) -> None:
         self.running = False
         if self.pc.getHandTotal() > 20 or self.pc.getTotalCards() == 9:
             self.winner = "opp"
@@ -83,7 +76,6 @@ class Board:
             self.winner = "opp"
         elif self.pc.getHandTotal() == self.opp.getHandTotal():
             self.winner = "tie"
-        return
 
     def getState(self) -> list[Player]:
         state = [self.pc, self.opp]

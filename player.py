@@ -1,16 +1,17 @@
-from hand import Section
+from hand import SideDeck, Hand
 from card import Card
 
 
 class Player:
 
-    def __init__(self, name):
+    def __init__(self, name) -> None:
         self.name = name
-        self.hand = Section.blank()
+        self.hand = Hand.blank()
         self.hand.setName = self.name
         self.standing = False
+        self.sideDeck = SideDeck.random()
     
-    def addHandCard(self, card: Card):
+    def addHandCard(self, card: Card) -> None:
         self.hand.addCard(card)
 
     def getHandTotal(self) -> int: 
@@ -31,9 +32,15 @@ class Player:
                     total += 1
         return total
 
+    def getSelectedCard(self) -> Card:
+        return self.sideDeck.getRow().getCards()[self.sideDeck.selected]
 
-    def stand(self):
+    def stand(self) -> None:
         self.standing = True
     
     def isStanding(self) -> bool:
         return self.standing
+    
+    def playSideDeckCard(self) -> None:
+        self.hand.addCard(self.getSelectedCard())
+        self.sideDeck.removeCard(self.getSelectedCard())
