@@ -53,11 +53,11 @@ class Section:
         return cards
 
     def removeCard(self, card: Card) -> None:
-        #Currently has a bug where it will remove every card that matches. Need to return after removing the first instance
         for row in self.rows:
             for index, rowCard in enumerate(row.getCards()):
                 if card == rowCard:
                     row.addCard(Card.blank(), index)
+                    return
 
     def getRows(self) -> list[Row]:
         return self.rows
