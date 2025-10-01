@@ -20,7 +20,7 @@ class Card:
     @classmethod
     def random(cls) -> 'Card':
         #Needs to be between 1 and 6
-        return cls(rand.randrange(0,10), rand.choice(['+', '-']), type='side_deck')
+        return cls(rand.randrange(1,6), rand.choice(['+', '-']), type='side_deck')
     
     def __eq__(self, card: 'Card'):
         return(
