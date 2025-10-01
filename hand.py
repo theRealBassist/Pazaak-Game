@@ -64,3 +64,12 @@ class Hand(Section):
     @classmethod
     def blank(cls):
         return cls([Row.blank(), Row.blank(), Row.blank()])
+    
+class SideDeck(Section):
+    
+    def __init__(self, rows = None):
+        super().__init__(rows)
+    
+    @classmethod
+    def blank(cls):
+        return cls([Row([Card.blank(), Card.blank(), Card.blank(), Card.blank()])])
