@@ -30,8 +30,6 @@ class Board:
         self.pc.addHandCard(card)
         return
         
-
-
     def oppTurn(self):
         if not self.opp.isStanding() is True:
                 card = Card(randrange(1, 10), None, "main_card")
@@ -64,8 +62,6 @@ class Board:
         
         return False
             
-        
-
     def endGame(self):
         self.running = False
         if self.pc.getHandTotal() > 20 or self.pc.getTotalCards() == 9:

@@ -29,7 +29,6 @@ class Row:
     def hasBlanks(self):
         return Card.blank() in self.cards
 
-
 class Section:
 
     def __init__(self, rows: list[Row] = None):
@@ -85,7 +84,6 @@ class SideDeck(Section):
         super().__init__(rows)
         self.selected = 0
         
-    
     @classmethod
     def blank(cls):
         return cls([Row([Card.blank(), Card.blank(), Card.blank(), Card.blank()])])
@@ -103,4 +101,3 @@ class SideDeck(Section):
         desiredCard = self.rows[0].getCards()[self.selected]
         if desiredCard != Card.blank():
             desiredCard.select()
-
