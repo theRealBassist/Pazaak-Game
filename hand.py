@@ -2,18 +2,18 @@ from card import Card
 
 class Row:
     
-    def __init__(self, cards: list[Card] = None):
-        self.cards = cards if cards is not None else [Card.blank(), Card.blank(), Card.blank()]
+    def __init__(self, cards: list[Card] = None) -> None:
+        self.cards = cards
         if len(self.cards) < 3:
             x = 0
             while x < 3 - len(self.cards):
                 self.addCard(Card.blank())
     
     @classmethod
-    def blank(cls):
+    def blank(cls) -> 'Row':
         return cls([Card.blank(), Card.blank(), Card.blank()])
     
-    def addCard(self, card: Card, index: int = None):
+    def addCard(self, card: Card, index: int = None) -> None:
         if index is not None:
             self.cards[index] = card 
         else:
@@ -26,22 +26,22 @@ class Row:
     def getCards(self) -> list[Card]:
         return self.cards
     
-    def hasBlanks(self):
+    def hasBlanks(self) -> bool:
         return Card.blank() in self.cards
 
 class Section:
 
-    def __init__(self, rows: list[Row] = None):
+    def __init__(self, rows: list[Row] = None) -> None:
         self.rows = rows if rows is not None else []
     
     @classmethod
-    def blank(cls):
+    def blank(cls) -> 'Section':
         return cls()
 
-    def setRow(self, index: int, row: list):
+    def setRow(self, index: int, row: list) -> None:
         self.rows[index] = row
 
-    def getRow(self, index):
+    def getRow(self, index) -> Row:
         return self.rows[index]
     
     def getCards(self) -> list[Card]:
@@ -53,6 +53,7 @@ class Section:
         return cards
 
     def removeCard(self, card: Card) -> None:
+        #Currently has a bug where it will remove every card that matches. Need to return after removing the first instance
         for row in self.rows:
             for index, rowCard in enumerate(row.getCards()):
                 if card == rowCard:
@@ -61,41 +62,39 @@ class Section:
     def getRows(self) -> list[Row]:
         return self.rows
     
-    def addCard(self, card: Card):
+    def addCard(self, card: Card) -> None:
         for row in self.rows:
             if row.hasBlanks():
                 row.addCard(card)
                 return
-            else:
-                pass
         raise ValueError("There is not a place to add a card")
 
 class Hand(Section):
-    def __init__(self, rows = None):
+    def __init__(self, rows = None) -> None:
         super().__init__(rows)
     
     @classmethod
-    def blank(cls):
+    def blank(cls) -> 'Hand':
         return cls([Row.blank(), Row.blank(), Row.blank()])
     
 class SideDeck(Section):
     
-    def __init__(self, rows = None):
+    def __init__(self, rows = None) -> None:
         super().__init__(rows)
         self.selected = 0
         
     @classmethod
-    def blank(cls):
+    def blank(cls) -> 'SideDeck':
         return cls([Row([Card.blank(), Card.blank(), Card.blank(), Card.blank()])])
     
-    def getRow(self):
+    def getRow(self) -> Row:
         return self.rows[0]
     
     @classmethod
-    def random(cls):
+    def random(cls) -> Row:
         return cls([Row([Card.random(), Card.random(), Card.random(), Card.random()])])
     
-    def select(self, index: int = 0):
+    def select(self, index: int = 0) -> None:
         index = index % 4
         self.selected = index
         desiredCard = self.rows[0].getCards()[self.selected]

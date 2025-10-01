@@ -55,14 +55,14 @@ class Screen:
 
 class GameScreen(Screen):
 
-    def __init__(self, board: Board = None):
+    def __init__(self, board: Board = None) -> None:
         super().__init__()
         self.players: list= board.getState() if board is not None else []
 
-    def update(self, board: Board):
+    def update(self, board: Board) -> None:
         self.players = board.getState()
     
-    def addPlayer(self, player: object):
+    def addPlayer(self, player: object) -> None:
         self.players.append(player)
         
     def render(self) -> None:
@@ -90,13 +90,13 @@ class GameScreen(Screen):
                 card.icon.refresh()
              
 class EndGameScreen(Screen):
-    def __init__(self):
+    def __init__(self) -> None:
         super().__init__()
 
-    def update(self, board: Board):
+    def update(self, board: Board) -> None:
         self.winner = board.winner
 
-    def render(self):
+    def render(self) -> None:
         match self.winner:
             case "player":
                 self.playerVictory()
@@ -107,24 +107,24 @@ class EndGameScreen(Screen):
         
         self.pause()
 
-    def playerVictory(self):
+    def playerVictory(self) -> None:
         self.stdscr.addstr("You WON!")
     
-    def playerDefeat(self):
+    def playerDefeat(self) -> None:
         self.stdscr.addstr("You LOST!")
     
-    def playerTie(self):
+    def playerTie(self) -> None:
         self.stdscr.addstr("You TIED!")
 
 class ScreenManager:
-    def __init__(self):
+    def __init__(self) -> None:
         self.currentScreen: Screen = Screen()
     
-    def update(self, *args):
+    def update(self, *args) -> None:
         self.currentScreen.update(*args)
         self.currentScreen.render()
 
-    def setScreen(self, newScreen, *args):
+    def setScreen(self, newScreen, *args) -> None:
         self.cleanup()
     
         if isinstance(newScreen, type):
@@ -138,14 +138,14 @@ class ScreenManager:
         key = self.currentScreen.stdscr.getkey()
         return key
     
-    def cleanup(self):
+    def cleanup(self) -> None:
         if self.currentScreen is not None:
             self.currentScreen.cleanup()
 
 class Icon():
 
     #icon should have a window, default size, and default texture
-    def __init__(self, size: Size = None, position: Position = None, texture: str = None):
+    def __init__(self, size: Size = None, position: Position = None, texture: str = None) -> None:
         self.size = size
         self.texture = texture
         self.position = position
@@ -153,18 +153,18 @@ class Icon():
     def setTexture(self, texture: str) -> None:
         self.texture = texture
     
-    def refresh(self):
+    def refresh(self) -> None:
         self.window = curses.newwin(self.size.height, self.size.width, self.position.y, self.position.x)
         self.window.addstr(self.texture)
         self.window.refresh()
 
-    def clear(self):
+    def clear(self) -> None:
         self.window.clear()
         self.window.refresh()
 
 class CardIcon(Icon):
     
-    def __init__(self, size: Size = Card.CARD_SIZE, position: Position = Position(0,0), sign: str = None, value: int = None, type: str = None):
+    def __init__(self, size: Size = Card.CARD_SIZE, position: Position = Position(0,0), sign: str = None, value: int = None, type: str = None) -> None:
         self.size = size
         self.position = position
         self.sign = sign if sign is not None else ""
@@ -173,7 +173,7 @@ class CardIcon(Icon):
         self.window = None
         self.selected = False
     
-    def refresh(self):
+    def refresh(self) -> None:
         if self.window:
             try: 
                 self.window.erase()
