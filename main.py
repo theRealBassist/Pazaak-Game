@@ -13,7 +13,8 @@ try:
         if input == "s":
             gameBoard.pc.stand()
 
-        playerSideDeck = gameBoard.getState()[0].sideDeck
+        player = gameBoard.getState()[0]
+        playerSideDeck = player.sideDeck
         currentlySelected = playerSideDeck.selected
         if input == "a":
             playerSideDeck.select(currentlySelected - 1)
@@ -21,8 +22,9 @@ try:
             playerSideDeck.select(currentlySelected + 1)
         if input == "w":
             #implement adding card to the deck
-            pass
-        
+            player.playSideDeckCard()
+            gameBoard.takeTurn()
+
         if input == "\n":
             gameBoard.takeTurn()
         if not gameBoard.running:

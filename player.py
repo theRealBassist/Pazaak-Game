@@ -32,9 +32,15 @@ class Player:
                     total += 1
         return total
 
+    def getSelectedCard(self) -> Card:
+        return self.sideDeck.getRow().getCards()[self.sideDeck.selected]
 
     def stand(self):
         self.standing = True
     
     def isStanding(self) -> bool:
         return self.standing
+    
+    def playSideDeckCard(self):
+        self.hand.addCard(self.getSelectedCard())
+        self.sideDeck.removeCard(self.getSelectedCard())

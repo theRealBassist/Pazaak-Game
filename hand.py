@@ -45,6 +45,20 @@ class Section:
     def getRow(self, index):
         return self.rows[index]
     
+    def getCards(self) -> list[Card]:
+        cards = []
+        for row in self.rows:
+            for card in row.getCards():
+                cards.append(card)
+        
+        return cards
+
+    def removeCard(self, card: Card) -> None:
+        for row in self.rows:
+            for index, rowCard in enumerate(row.getCards()):
+                if card == rowCard:
+                    row.addCard(Card.blank(), index)
+
     def getRows(self) -> list[Row]:
         return self.rows
     
@@ -86,5 +100,7 @@ class SideDeck(Section):
     def select(self, index: int = 0):
         index = index % 4
         self.selected = index
-        self.rows[0].getCards()[self.selected].select()
+        desiredCard = self.rows[0].getCards()[self.selected]
+        if desiredCard != Card.blank():
+            desiredCard.select()
 
