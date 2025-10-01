@@ -78,8 +78,7 @@ class GameScreen(Screen):
                     cardPosition = Position(z + x * Card.CARD_SIZE.height + 5, y * Card.CARD_SIZE.width + 5)
                     card.setIcon(CardIcon(size= Card.CARD_SIZE, position=cardPosition, sign=card.sign, value=card.value, type=card.type))
                     card.icon.refresh()
-        
-        
+             
 class EndGameScreen(Screen):
     def __init__(self):
         super().__init__()
