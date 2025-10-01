@@ -9,7 +9,7 @@ class Player:
         self.hand = Hand.blank()
         self.hand.setName = self.name
         self.standing = False
-        self.sideDeck = SideDeck.blank()
+        self.sideDeck = SideDeck.random()
     
     def addHandCard(self, card: Card):
         self.hand.addCard(card)

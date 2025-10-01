@@ -76,3 +76,7 @@ class SideDeck(Section):
     
     def getRow(self):
         return self.rows[0]
+    
+    @classmethod
+    def random(cls):
+        return cls([Row([Card.random(), Card.random(), Card.random(), Card.random()])])

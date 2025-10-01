@@ -1,4 +1,5 @@
 from assets.icons import Size
+import random as rand
 
 class Card:
     CARD_SIZE = Size(8, 8)
@@ -14,6 +15,10 @@ class Card:
     @classmethod
     def blank(cls):
         return cls(0, '', 'blank_slot')
+    
+    @classmethod
+    def random(cls):
+        return cls(rand.randrange(0,10), rand.choice(['+', '-']), 'side_deck')
     
     def __eq__(self, card: 'Card'):
         return(

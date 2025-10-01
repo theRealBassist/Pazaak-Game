@@ -1,4 +1,5 @@
 from dataclasses import dataclass
+import re
 
 ICONS = {
     "blank_slot": (
@@ -10,6 +11,14 @@ ICONS = {
                     "|_____|",
     ),
     "main_card": (
+                    "  ___  ",
+                    r" /...\ ",
+                    "|.....|",
+                    "|.{combined}.|",
+                    "|.....|",
+                    r" \___/ ",
+    ),
+    "side_deck": (
                     "  ___  ",
                     r" /...\ ",
                     "|.....|",
@@ -40,6 +49,7 @@ def renderIcon(name: str, sign: str = ".", value: int = 0) -> list[str]:
 
     combined = f"{sign}{value}"[:3]
     combined  = combined.center(3)
+    combined = re.sub(r'\s+', '.', combined)
 
     lines: list[str] = []
     for line in icon:
