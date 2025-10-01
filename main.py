@@ -21,7 +21,6 @@ try:
         if input == "d":
             playerSideDeck.select(currentlySelected + 1)
         if input == "w":
-            #implement adding card to the deck
             player.playSideDeckCard()
             gameBoard.takeTurn()
 
