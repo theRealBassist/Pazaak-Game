@@ -28,23 +28,6 @@ class Row:
     
     def hasBlanks(self):
         return Card.blank() in self.cards
-    
-    def bake(self):
-        bakedCards = []
-        for card in self.cards:
-            bakedCards.append(card.bake())
-
-        lines = []
-        x = 0
-        while x < 6:
-            line = ''
-            for card in bakedCards:
-                line += card[x]
-                line += "  "
-            lines.append(line)
-            x += 1
-        
-        return lines
 
 
 class Section:
