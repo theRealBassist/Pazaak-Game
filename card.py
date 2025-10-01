@@ -8,6 +8,7 @@ class Card:
         self.value = value if value is not None else 0
         self.sign = sign if sign is not None else ""
         self.type = type
+        self.icon = None
 
     def setIcon(self, icon: object = None):
         self.icon = icon
@@ -27,3 +28,9 @@ class Card:
             self.sign == card.sign and
             self.type == card.type
         )
+    
+    def select(self):
+        self.icon.selected = True
+    
+    def deselct(self):
+        self.icon.selected = False

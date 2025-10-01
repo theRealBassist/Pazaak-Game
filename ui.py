@@ -86,6 +86,7 @@ class GameScreen(Screen):
             for x, card in enumerate(sideDeck.getCards()):
                 cardPosition  = Position(z + x * Card.CARD_SIZE.width + 5, 28)
                 card.setIcon(CardIcon(size= Card.CARD_SIZE, position=cardPosition, sign=card.sign, value=card.value, type=card.type))
+                card.icon.selected = (x == player.sideDeck.selected)
                 card.icon.refresh()
              
 class EndGameScreen(Screen):
@@ -170,6 +171,7 @@ class CardIcon(Icon):
         self.value = value if value is not None else 0
         self.type = type if type is not None else "blank_slot"
         self.window = None
+        self.selected = False
     
     def refresh(self):
         if self.window:
@@ -182,5 +184,8 @@ class CardIcon(Icon):
         if len(lines) < 2:
             raise ValueError("The rendering of the Icon failed")
         for i, line in enumerate(lines):
-            self.window.addstr(i, 0, line[:self.size.width])
+            if self.selected == True:
+                self.window.addstr(i, 0, line[:self.size.width], curses.A_REVERSE)
+            else:
+                self.window.addstr(i, 0, line[:self.size.width])
         self.window.refresh()

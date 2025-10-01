@@ -69,6 +69,8 @@ class SideDeck(Section):
     
     def __init__(self, rows = None):
         super().__init__(rows)
+        self.selected = 0
+        
     
     @classmethod
     def blank(cls):
@@ -80,3 +82,9 @@ class SideDeck(Section):
     @classmethod
     def random(cls):
         return cls([Row([Card.random(), Card.random(), Card.random(), Card.random()])])
+    
+    def select(self, index: int = 0):
+        index = index % 4
+        self.selected = index
+        self.rows[0].getCards()[self.selected].select()
+
