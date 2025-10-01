@@ -37,7 +37,7 @@ class Section:
     
     @classmethod
     def blank(cls):
-        return cls([Row.blank(), Row.blank(), Row.blank()])
+        return cls()
 
     def setRow(self, index: int, row: list):
         self.rows[index] = row
@@ -56,3 +56,11 @@ class Section:
             else:
                 pass
         raise ValueError("There is not a place to add a card")
+
+class Hand(Section):
+    def __init__(self, rows = None):
+        super().__init__(rows)
+    
+    @classmethod
+    def blank(cls):
+        return cls([Row.blank(), Row.blank()])

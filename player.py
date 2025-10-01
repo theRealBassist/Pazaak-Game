@@ -1,4 +1,4 @@
-from hand import Section
+from hand import Section, Hand
 from card import Card
 
 
@@ -6,7 +6,7 @@ class Player:
 
     def __init__(self, name):
         self.name = name
-        self.hand = Section.blank()
+        self.hand = Hand.blank()
         self.hand.setName = self.name
         self.standing = False
     
