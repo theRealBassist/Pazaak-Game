@@ -63,4 +63,4 @@ class Hand(Section):
     
     @classmethod
     def blank(cls):
-        return cls([Row.blank(), Row.blank()])
+        return cls([Row.blank(), Row.blank(), Row.blank()])
