@@ -70,14 +70,23 @@ class GameScreen(Screen):
         self.stdscr.border()
         self.stdscr.refresh()
         
+        #Render Main Hand
         for z, player in enumerate(self.players):
             z = z * Card.CARD_SIZE.width * 5
             hand = player.hand.getRows()
             for y, row in enumerate(hand):
                 for x, card in enumerate(row.getCards()):
-                    cardPosition = Position(z + x * Card.CARD_SIZE.height + 5, y * Card.CARD_SIZE.width + 5)
+                    cardPosition = Position(z + x * Card.CARD_SIZE.width + 5, y * Card.CARD_SIZE.height + 5)
                     card.setIcon(CardIcon(size= Card.CARD_SIZE, position=cardPosition, sign=card.sign, value=card.value, type=card.type))
                     card.icon.refresh()
+        
+        for z, player, in enumerate(self.players):
+            z = z * Card.CARD_SIZE.width * 5
+            sideDeck = player.sideDeck.getRow()
+            for x, card in enumerate(sideDeck.getCards()):
+                cardPosition  = Position(z + x * Card.CARD_SIZE.width + 5, 28)
+                card.setIcon(CardIcon(size= Card.CARD_SIZE, position=cardPosition, sign=card.sign, value=card.value, type=card.type))
+                card.icon.refresh()
              
 class EndGameScreen(Screen):
     def __init__(self):

@@ -42,7 +42,7 @@ class Section:
     def setRow(self, index: int, row: list):
         self.rows[index] = row
 
-    def getRow(self, index: int):
+    def getRow(self, index):
         return self.rows[index]
     
     def getRows(self) -> list[Row]:
@@ -73,3 +73,6 @@ class SideDeck(Section):
     @classmethod
     def blank(cls):
         return cls([Row([Card.blank(), Card.blank(), Card.blank(), Card.blank()])])
+    
+    def getRow(self):
+        return self.rows[0]
