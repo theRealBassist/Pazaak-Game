@@ -61,9 +61,6 @@ class GameScreen(Screen):
 
     def update(self, board: Board) -> None:
         self.players = board.getState()
-    
-    def addPlayer(self, player: object) -> None:
-        self.players.append(player)
         
     def render(self) -> None:
         self.stdscr.clear()
