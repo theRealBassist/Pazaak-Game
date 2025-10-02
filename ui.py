@@ -1,4 +1,4 @@
-from card import Card
+from hand import Card
 from board import Board
 from assets.icons import renderIcon
 from assets.icons import Size, Position

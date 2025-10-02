@@ -1,5 +1,4 @@
-from hand import SideDeck, Hand
-from card import Card
+from hand import SideDeck, Hand, Card
 
 
 class Player:

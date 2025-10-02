@@ -1,5 +1,5 @@
 from player import Player
-from card import Card
+from hand import Card
 
 from random import randrange
 from random import choice
